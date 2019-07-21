@@ -20,14 +20,17 @@
 		<p>
 			<?php
 			$strPoker = isset($_POST['strPoker']) ? (string) trim($_POST['strPoker']) : null;
-
+			// Check if the input string is vaild
 			if (!preg_match('/^([SHDC]{1}([2-9AJQK]|10)){5}$/', $strPoker)) {
 				echo "Please enter the valid poker string.", "<br>";
 				echo "For Example: S8D3HQS3CQ", "<br>";
 			} else {
+				// If valid then split the rank of 5 card to handle by the following algorithm
 				echo "Input string: ", $strPoker, "<br>";
 				$strRank = preg_replace("/[SHDC]/", "", $strPoker);
+				// declare the count variable
 				$result = 0;
+				// count the total time each card appeared
 				for ($i = 0; $i < strlen($strRank); $i++) {
 					if ($strRank[$i] == "0") {
 						continue;
@@ -35,6 +38,8 @@
 					$result += substr_count($strRank, $strRank[$i]);
 				}
 				echo "Output: ";
+
+				// Based on the result we conclude the poker hand
 
 				switch ($result) {
 					case 5: {
